@@ -1,0 +1,64 @@
+const btn = document.querySelector('.off');
+
+btn.addEventListener('click', function() {
+  if (btn.textContent === 'On') {
+    btn.textContent = 'Off';
+  } else {
+    btn.textContent = 'On';
+  }
+});
+--------------------------------
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+function drawCircle(x, y, size) {
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.arc(x, y, size, 0, 2 * Math.PI);
+  ctx.fill();
+}
+
+let x = 50;
+let y = 50;
+const size = 30;
+
+drawCircle(x, y, size);
+
+document.addEventListener('keydown', function(event) {
+  const speed = 10; // Adjust this value to change the speed of movement
+  switch (event.key) {
+    case 'w':
+      y -= speed;
+      break;
+    case 'a':
+      x -= speed;
+      break;
+    case 's':
+      y += speed;
+      break;
+    case 'd':
+      x += speed;
+      break;
+    default:
+      return; // If key is not WASD, do nothing
+  }
+  
+  // Ensure the circle stays within the canvas boundaries
+  x = Math.max(size, Math.min(canvas.width - size, x));
+  y = Math.max(size, Math.min(canvas.height - size, y));
+  
+  drawCircle(x, y, size);
+});
+--------------------------------
+const buttonBar = document.querySelector('.button-bar');
+
+buttonBar.addEventListener('click', function(event) {
+  const target = event.target;
+  if (target.tagName === 'BUTTON') {
+    const color = target.getAttribute('data-color');
+    buttonBar.style.backgroundColor = color;
+  }
+});
